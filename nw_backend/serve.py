@@ -39,6 +39,7 @@ class GameSession:
 
         # Bot decides its move immediately after reset, before humans submit
         self.pending_bot_move: Optional[int] = self._bot_decide()
+        print("bot move:", self.pending_bot_move)
 
         print(f"GameSession initialized with {num_players} players. Bot ID: {self.bot_id}")
 
@@ -52,6 +53,7 @@ class GameSession:
         obs = self.last_obs[self.bot_id]
         with torch.no_grad():
             a, _, _, self.hidden = self.bot_net.act(obs, self.hidden)
+        print(a)
         return a
 
     def step(self, human_moves: list[int]) -> dict:
